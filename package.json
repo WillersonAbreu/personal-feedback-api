@@ -1,0 +1,28 @@
+{
+  "name": "personal-feedback-api",
+  "version": "1.0.0",
+  "description": "Personal Feedback Application",
+  "main": "index.js",
+  "author": "Willerson Abreu",
+  "license": "MIT",
+  "scripts": {
+    "build": "sucrase ./src -d ./build --transforms javascript,imports ",
+    "dev:start": "nodemon index.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.2",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.3.5",
+    "yup": "^0.29.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4",
+    "sequelize-cli": "^6.2.0",
+    "sucrase": "^3.15.0"
+  }
+}
