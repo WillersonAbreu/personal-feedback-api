@@ -7,8 +7,8 @@ class User extends Model {
       {
         name: Sequelize.STRING,
         email: Sequelize.STRING,
-        passwordConfirmation: Sequelize.VIRTUAL,
         password: Sequelize.STRING,
+        passwordConfirmation: Sequelize.VIRTUAL,
         about_user: Sequelize.STRING,
         is_active: Sequelize.BOOLEAN,
       },
@@ -26,7 +26,10 @@ class User extends Model {
     return this;
   }
 
-  static associate(models) {}
+  static associate(models) {
+    this.hasMany(models.Feedback, { foreignKey: "user_creator_id" });
+    // this.belongsTo(models.Feedback, { foreignKey: "user_receiver_id" });
+  }
 
   async checkPassword(password) {
     return bcrypt.compare(password, this.password);

@@ -8,44 +8,46 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    await queryInterface.createTable("users", {
+    await queryInterface.createTable("feedbacks", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      name: {
+      user_creator_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: { model: "users", key: "id" },
+      },
+      user_receiver_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: { model: "users", key: "id" },
+      },
+      points_to_improve: {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      email: {
-        allowNull: false,
-        type: Sequelize.STRING,
-        unique: true,
-      },
-      password: {
+      points_to_keep: {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      about_user: {
+      suggestions: {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      is_active: {
+      final_feedback: {
         allowNull: false,
-        type: Sequelize.BOOLEAN,
-        defaultValue: 1,
+        type: Sequelize.STRING,
       },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,
-        defaultValue: Sequelize.NOW,
       },
       updated_at: {
         type: Sequelize.DATE,
         allowNull: false,
-        defaultValue: Sequelize.NOW,
       },
     });
   },
@@ -55,8 +57,8 @@ module.exports = {
      * Add reverting commands here.
      *
      * Example:
-     * await queryInterface.dropTable('users');
+     *
      */
-    await queryInterface.dropTable("users");
+    await queryInterface.dropTable("feedbacks");
   },
 };

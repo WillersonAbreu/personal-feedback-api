@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "build": "sucrase ./src -d ./build --transforms javascript,imports ",
-    "dev:start": "nodemon index.js"
+    "dev:start": "nodemon ./src/index.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

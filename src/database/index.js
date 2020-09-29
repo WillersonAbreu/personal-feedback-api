@@ -5,9 +5,10 @@ import databaseConfig from "../config/database";
 
 // Models
 import User from "../app/models/User";
+import Feedback from "../app/models/Feedback";
 
 // Array with all models
-const models = [User];
+const models = [User, Feedback];
 
 class Database {
   constructor() {

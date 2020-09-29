@@ -1,7 +1,8 @@
 import express from "express";
 import routes from "./routes/routes";
 
-// import "./database";
+// Initiate all models
+import "./database";
 
 class App {
   constructor() {
@@ -12,8 +13,6 @@ class App {
 
   // Registering middlewares
   middlewares() {
-    // this.server.use(bodyParser.json());
-    // this.server.use(cors());[]
     this.server.use(express.json());
   }
 
