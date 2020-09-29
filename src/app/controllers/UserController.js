@@ -1,6 +1,4 @@
-import Sequelize, { Op } from "sequelize";
 import UserService from "../services/UserService";
-import UserValidationService from "../services/Validations/UserValidationService";
 
 class UserController {
   async index(req, res) {

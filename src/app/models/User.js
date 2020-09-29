@@ -27,8 +27,12 @@ class User extends Model {
   }
 
   static associate(models) {
-    this.hasMany(models.Feedback, { foreignKey: "user_creator_id" });
-    // this.belongsTo(models.Feedback, { foreignKey: "user_receiver_id" });
+    this.hasMany(models.Feedback, {
+      foreignKey: "user_creator_id",
+    });
+    this.belongsTo(models.Feedback, {
+      foreignKey: "id",
+    });
   }
 
   async checkPassword(password) {

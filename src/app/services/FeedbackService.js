@@ -1,52 +1,56 @@
 // Models
-import User from "../models/User";
-import UserValidationService from "./Validations/UserValidationService";
+import Feedback from "../models/Feedback";
+import FeedbackValidationService from "./validations/FeedbackValidationService";
 
-class UserService {
+class FeedbackService {
   async index() {
-    return await User.findAll({
-      where: {
-        is_active: true,
-      },
-    });
+    return await Feedback.findAll();
   }
 
-  async store(userData, res) {
-    await UserValidationService.store(userData, res);
-    const user = await User.create(userData);
-    return user;
+  async getCreatedFeedbacks(userId) {
+    return await Feedback.findAll({ where: { user_creator_id: userId } });
   }
 
-  async update(userId, userData, res) {
-    // Finding the user by userId that iside the JWT token
-    let user = await User.findByPk(userId);
+  async getReceivedFeedbacks(userId) {
+    return await Feedback.findAll({ where: { user_receiver_id: userId } });
+  }
 
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
+  async store(feedbackData, res) {
+    await FeedbackValidationService.store(feedbackData, res);
+    const feedback = await Feedback.create(feedbackData);
+    return feedback;
+  }
+
+  async update(feedbackId) {
+    // Finding the feedback by feedbackId that iside the JWT token
+    let feedback = await Feedback.findByPk(feedbackId);
+
+    if (!feedback) {
+      return res.status(404).json({ message: "Feedback not found" });
     }
 
-    await UserValidationService.update(userData, user.email, res);
+    await FeedbackValidationService.update(feedbackData);
 
-    const updatedUser = await user.update(userData);
-    return updatedUser;
+    const updatedFeedback = await feedback.update(feedbackData);
+    return updatedFeedback;
   }
 
-  async delete(userId, res) {
-    if (!userId)
+  async delete(feedbackId, res) {
+    if (!feedbackId)
       return res
         .status(400)
-        .json({ message: "Is necessary insert the user ID" });
+        .json({ message: "Is necessary insert the feedback ID" });
 
-    // Finding the user by userId that iside the JWT token
-    let user = await User.findByPk(userId);
+    // Finding the feedback by feedbackId
+    let feedback = await Feedback.findByPk(feedbackId);
 
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
+    if (!feedback) {
+      return res.status(404).json({ message: "Feedback not found" });
     }
 
-    const updatedUser = await user.update({ is_active: false });
-    return updatedUser;
+    const deletedFeedback = await feedback.destroy();
+    return deletedFeedback;
   }
 }
 
-export default new UserService();
+export default new FeedbackService();

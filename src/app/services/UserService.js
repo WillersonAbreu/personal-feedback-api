@@ -1,6 +1,6 @@
 // Models
 import User from "../models/User";
-import UserValidationService from "./Validations/UserValidationService";
+import UserValidationService from "./validations/UserValidationService";
 
 class UserService {
   async index() {
