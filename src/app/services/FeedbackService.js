@@ -88,7 +88,7 @@ class FeedbackService {
     return feedback;
   }
 
-  async update(feedbackId) {
+  async update(feedbackId, feedbackData, res) {
     // Finding the feedback by feedbackId that iside the JWT token
     let feedback = await Feedback.findByPk(feedbackId);
 
