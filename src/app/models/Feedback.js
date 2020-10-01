@@ -20,8 +20,14 @@ class Feedback extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.User, { foreignKey: "user_creator_id" });
-    this.hasOne(models.User, { foreignKey: "id" });
+    this.belongsTo(models.User, {
+      foreignKey: "user_creator_id",
+      as: "creator",
+    });
+    this.belongsTo(models.User, {
+      foreignKey: "user_receiver_id",
+      as: "receiver",
+    });
   }
 }
 

@@ -1,6 +1,8 @@
 import express from "express";
 import routes from "./routes/routes";
 
+import cors from "cors";
+
 // Initiate all models
 import "./database";
 
@@ -14,6 +16,7 @@ class App {
   // Registering middlewares
   middlewares() {
     this.server.use(express.json());
+    this.server.use(cors());
   }
 
   // Registering routes

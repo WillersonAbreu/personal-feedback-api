@@ -1,5 +1,6 @@
 // Models
 import Feedback from "../models/Feedback";
+import User from "../models/User";
 import FeedbackValidationService from "./validations/FeedbackValidationService";
 
 class FeedbackService {
@@ -8,11 +9,77 @@ class FeedbackService {
   }
 
   async getCreatedFeedbacks(userId) {
-    return await Feedback.findAll({ where: { user_creator_id: userId } });
+    return await Feedback.findAll({
+      where: { user_creator_id: userId },
+      include: [
+        {
+          model: User,
+          as: "creator",
+          attributes: {
+            exclude: [
+              "email",
+              "password",
+              "about_user",
+              "is_active",
+              "createdAt",
+              "updatedAt",
+            ],
+          },
+        },
+        {
+          model: User,
+          as: "receiver",
+          attributes: {
+            exclude: [
+              "email",
+              "password",
+              "about_user",
+              "is_active",
+              "createdAt",
+              "updatedAt",
+            ],
+          },
+        },
+      ],
+      order: [["createdAt", "DESC"]],
+    });
   }
 
   async getReceivedFeedbacks(userId) {
-    return await Feedback.findAll({ where: { user_receiver_id: userId } });
+    return await Feedback.findAll({
+      where: { user_receiver_id: userId },
+      include: [
+        {
+          model: User,
+          as: "creator",
+          attributes: {
+            exclude: [
+              "email",
+              "password",
+              "about_user",
+              "is_active",
+              "createdAt",
+              "updatedAt",
+            ],
+          },
+        },
+        {
+          model: User,
+          as: "receiver",
+          attributes: {
+            exclude: [
+              "email",
+              "password",
+              "about_user",
+              "is_active",
+              "createdAt",
+              "updatedAt",
+            ],
+          },
+        },
+      ],
+      order: [["createdAt", "DESC"]],
+    });
   }
 
   async store(feedbackData, res) {
